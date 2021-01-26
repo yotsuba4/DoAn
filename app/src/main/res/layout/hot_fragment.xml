@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.HomeFragment.Fragment.Hot.HotFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_hot_fragment_banner"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/circle_idicator_hot_fragment_banner"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="30dp"
+                app:ci_drawable="@drawable/circleindicator_round"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nổi bật"
+            android:paddingTop="3dp"
+            android:paddingStart="10dp"
+            android:paddingBottom="10dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_fragment_hot_food"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+
+</FrameLayout>

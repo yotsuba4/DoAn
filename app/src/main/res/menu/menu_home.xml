@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/tab_hot"
+        android:icon="@drawable/ic_hot"
+        android:title="@string/tab_hot"/>
+    <item android:id="@+id/tab_favorite"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/tab_favorite"/>
+    <item android:id="@+id/tab_sale_code"
+        android:icon="@drawable/ic_sale_code"
+        android:title="@string/tab_sale_code"/>
+    <item android:id="@+id/tab_notification"
+        android:icon="@drawable/ic_notification"
+        android:title="@string/tab_notification"/>
+</menu>

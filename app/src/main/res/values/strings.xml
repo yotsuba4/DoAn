@@ -1,0 +1,93 @@
+<resources>
+    <!--Activity label-->
+    <string name="app_name">Food Offer</string>
+    <string name="lable_Login_Activity">Đăng Nhập</string>
+    <string name="lable_Signin_Activity">Đăng Ký</string>
+    <string name="lable_UserInfomationActivity">Thông Tin Cá Nhân</string>
+    <string name="lable_DiscountCodeActivity">Mã Giảm Giá</string>
+    <string name="lable_ChangePasswordActivity">Đổi Mật Khẩu</string>
+    <string name="lable_CartActivity">Giỏ Hàng</string>
+    <string name="lable_HistoryTransactionActivity">Lịch Sử Đặt Hàng</string>
+    <string name="lable_AboutUs">Thông Tin Phiên Bản</string>
+    <string name="lable_Price_Title">Giá</string>
+    <string name="lable_Desc_Title">Mô tả</string>
+    <string name="lable_Res_Title">Quán ăn</string>
+
+    <!--toolbar menu-->
+    <string name="toolbar_search">Search</string>
+    <string name="toolbar_avatar">avatar</string>
+    <string name="toolbar_confirm">Xác nhận</string>
+    <string name="toolbar_next">Tiếp tục</string>
+
+    <!--navigation-->
+    <!--nav_header-->
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <!--nav_menu-->
+
+    <string name="nav_userinfo">Thông tin cá nhân</string>
+    <string name="nav_discountcode">Mã giảm giá</string>
+    <string name="nav_userChangePass">Đổi mật khẩu</string>
+    <string name="nav_cart">Giỏ hàng</string>
+    <string name="nav_historyTransaction">Lịch sử đặt hàng</string>
+    <string name="nav_aboutus">Thông tin phiên bản</string>
+    <string name="nav_logout">Đăng xuất</string>
+
+    <!--bottom menu-->
+    <string name="tab_hot">Nổi bật</string>
+    <string name="tab_favorite">Yêu thích</string>
+    <string name="tab_sale_code">Mã giảm giá</string>
+    <string name="tab_notification">Thông báo</string>
+
+    <!--label/hint controller-->
+    <string name="btn_login">Đăng nhập</string>
+    <string name="btn_ggLogin">Đăng nhập bằng tài khoản Google</string>
+    <string name="btn_fbLogin">Đăng nhập bằng tài khoản Facebook</string>
+    <string name="btn_cancle">Hủy</string>
+    <string name="btn_signup">Đăng ký</string>
+    <string name="cb_saveAccount">Lưu mật khẩu</string>
+    <string name="btn_forgetPassword">Quên mật khẩu?</string>
+    <string name="txt_dialog_connect">-------------------- Hoặc --------------------</string>
+    <string name="hint_userName">Tên đăng nhập</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="hint_newPassword">Mật khẩu mới</string>
+    <string name="hint_passwordConfirm">Xác nhận mật khâu</string>
+    <string name="hint_fullName">Họ và tên</string>
+    <string name="hint_bDate">Ngày sinh</string>
+    <string name="tv_gender">Giới tính</string>
+    <string name="rbt_male">Nam</string>
+    <string name="rbt_female">Nữ</string>
+    <string name="hint_userID">Số CMTND/Thẻ căn cước công dân</string>
+    <string name="hint_Phone">Số điện thoại</string>
+    <string name="hint_email">Địa chỉ email</string>
+    <string name="hint_adress">Địa chỉ</string>
+
+    <!--database-->
+
+    <string name="shared_preferences_login">shared_preferences_login</string>
+    <string name="shared_preferences_signin">shared_preferences_signin</string>
+    <string name="database_name">EnterName</string>
+    <string name="table_name1">Table1</string>
+
+    <!-- request url-->
+    <string name="url_Login">https://doan5.herokuapp.com/api/user/auth/login</string>
+    <string name="url_Signin">https://doan5.herokuapp.com/api/user/auth/register</string>
+    <string name="url_GetAccount">https://doan5.herokuapp.com/api/user/auth/getMe</string>
+    <string name="url_UpdateAccount">https://doan5.herokuapp.com/api/user/auth/update</string>
+    <string name="url_ChangePassword">https://doan5.herokuapp.com/api/user/auth/updatePassword</string>
+    <string name="url_CheckUserExists">https://doan5.herokuapp.com/api/user/auth/verifyUsername?username=</string>
+    <string name="url_GetFood">https://doan5.herokuapp.com/food</string>
+
+
+    <!--Fragment-->
+    <integer name="USERINFORMATION_FRAGMENT">1</integer>
+    <integer name="SIGNIN_FRAGMENT">2</integer>
+    <integer name="CHANGEPASSWORD_FRAGMENT">3</integer>
+
+    <!--intent-->
+    <string name="fragmentID">fragmentID</string>
+    <string name="signIn_userName">username</string>
+    <string name="signIn_password">password</string>
+    <string name="signIn_status">isLogin</string>
+</resources>

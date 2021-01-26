@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "840867900648",
+    "project_id": "food-offer-77a20",
+    "storage_bucket": "food-offer-77a20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840867900648:android:d5c87861f16c7afb22ad5d",
+        "android_client_info": {
+          "package_name": "cdio4.cots.foodoffer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840867900648-o00d5pb6sfpvjvp1hccie2ql2jfpobgi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxJ2RgtTvybZGMqdUancgWGGynAKlTck4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840867900648-o00d5pb6sfpvjvp1hccie2ql2jfpobgi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
