@@ -6,7 +6,7 @@
     tools:context=".ui.restaurant.MenuFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_user"
+        android:id="@+id/rcv_res_menu_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
