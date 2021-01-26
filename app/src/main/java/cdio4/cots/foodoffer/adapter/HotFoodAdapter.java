@@ -86,7 +86,8 @@ public class HotFoodAdapter extends RecyclerView.Adapter<HotFoodAdapter.HotFoodV
                     String foodprice = mListFood.get(position).getFood_Price()+"";
                     intent.putExtra("Price",foodprice);
                     intent.putExtra("Describe",mListFood.get(position).getFood_Captions());
-                    intent.putExtra("FoodRes",mListFood.get(position).getRestaurant_ID());
+                    intent.putExtra("FoodRes_ID",mListFood.get(position).getRestaurant_ID());
+                    intent.putExtra("FoodRes_Name",mListFood.get(position).getRestaurant_Name());
                     mContext.startActivity(intent);
                 }
             });

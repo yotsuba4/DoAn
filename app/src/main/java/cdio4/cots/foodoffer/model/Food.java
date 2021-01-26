@@ -4,10 +4,12 @@ public class Food {
     private String food_ID;
     private String kindOfFood_ID;
     private String Restaurant_ID;
+    private String Restaurant_Name;
     private String food_Name;
     private Double food_Price;
     private String food_Captions;
     private String food_urlImage;
+
     public String getFood_ID() {
         return food_ID;
     }
@@ -30,6 +32,14 @@ public class Food {
 
     public void setRestaurant_ID(String restaurant_ID) {
         Restaurant_ID = restaurant_ID;
+    }
+
+    public String getRestaurant_Name() {
+        return Restaurant_Name;
+    }
+
+    public void setRestaurant_Name(String restaurant_Name) {
+        Restaurant_Name = restaurant_Name;
     }
 
     public String getFood_Name() {
@@ -64,16 +74,19 @@ public class Food {
         this.food_urlImage = food_urlImage;
     }
 
-    public Food(String food_ID, String restaurant_ID, String food_Name,
-                Double food_Price, String food_Captions, String food_urlImage) {
+    public Food(String food_ID, String kindOfFood_ID, String restaurant_ID,
+                String restaurant_Name, String food_Name, Double food_Price,
+                String food_Captions, String food_urlImage) {
         this.food_ID = food_ID;
-        this.Restaurant_ID = restaurant_ID;
+        this.kindOfFood_ID = kindOfFood_ID;
+        Restaurant_ID = restaurant_ID;
+        Restaurant_Name = restaurant_Name;
         this.food_Name = food_Name;
         this.food_Price = food_Price;
         this.food_Captions = food_Captions;
         this.food_urlImage = food_urlImage;
     }
-
+    //
     public Food(String food_ID, String kindOfFood_ID, String restaurant_ID,
                 String food_Name, Double food_Price, String food_Captions, String food_urlImage) {
         this.food_ID = food_ID;
@@ -87,37 +100,10 @@ public class Food {
 
     public Food() {
     }
-/*    private int image;
-    private String name;
-    private int price;
 
-    public Food(int image, String name, int price) {
-        this.image = image;
-        this.name = name;
-        this.price = price;
+    public Food(String food_Name, Double food_Price, String food_urlImage) {
+        this.food_Name = food_Name;
+        this.food_Price = food_Price;
+        this.food_urlImage = food_urlImage;
     }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }*/
 }

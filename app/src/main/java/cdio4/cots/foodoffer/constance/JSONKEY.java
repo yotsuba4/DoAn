@@ -9,7 +9,7 @@ public interface JSONKEY {
     final String JSON_DATA = "data";
     final String JSON_TOKEN = "token";
     final String JSON_ERROR = "error";
-
+    final String JSON_MENU = "menu";
 
     //User Object
     final String USERNAME = "username";
@@ -27,8 +27,24 @@ public interface JSONKEY {
     final String HOST_TOKEN = "Bearer ";
 
     // Food Object
+    final String FOOD_NAME = "tenMon";
+    final String FOOD_PRICE = "gia";
+    final String FOOD_IMAGE = "hinhAnh";
+
 
     // Restaurant Object
+    final String RESTAURANT = "restaurant";
+    final String MENU = "menu";
+    final String LOACTION = "toaDo";
+    final String X = "x";
+    final String Y = "y";
+    final String RESTAURANT_NAME = "tenNhaHang";
+    final String RESTAURANT_IMAGE = "hinh";
+    final String RESTAURANT_EMAIL = "email";
+    final String RESTAURANT_ADRESS = "diaChi";
+    final String RESTAURANT_PHONE = "SDT";
+    final String RESTAURANT_STYPE = "loaiHinh";
+    final String RESTAURANT_STYPE_NAME = "name";
 }
 /*
 

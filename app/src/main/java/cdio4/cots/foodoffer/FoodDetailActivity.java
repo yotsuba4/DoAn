@@ -48,7 +48,7 @@ public class FoodDetailActivity extends AppCompatActivity {
     private Button foodRes;
     private ImageButton cartFood;
 
-
+    private String fRes_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +75,8 @@ public class FoodDetailActivity extends AppCompatActivity {
         String fName = intent.getStringExtra("FoodName");
         String fPrice = intent.getStringExtra("Price");
         String fDesc = intent.getStringExtra("Describe");
-        String fRes = intent.getStringExtra("FoodRes");
+        String fRes = intent.getStringExtra("FoodRes_Name");
+        fRes_ID = intent.getStringExtra("FoodRes_ID");
         String fURL = intent.getStringExtra("FoodURL");
         collapsingToolbarLayout.setTitle(fName);
         foodPrice.setText(fPrice);
@@ -108,7 +109,9 @@ public class FoodDetailActivity extends AppCompatActivity {
         foodRes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FoodDetailActivity.this, RestaurantDetailActivity.class));
+                intent = new Intent(FoodDetailActivity.this, RestaurantDetailActivity.class);
+                intent.putExtra("restaurant_ID", fRes_ID);
+                startActivity(intent);
             }
         });
         /*foodPrice.setOnClickListener(new View.OnClickListener() {

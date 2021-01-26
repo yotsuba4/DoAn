@@ -1,6 +1,5 @@
 package cdio4.cots.foodoffer.ui.HomeFragment.Fragment.Hot;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,27 +7,31 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,28 +39,13 @@ import cdio4.cots.foodoffer.MainActivity;
 import cdio4.cots.foodoffer.R;
 import cdio4.cots.foodoffer.adapter.HotFoodAdapter;
 import cdio4.cots.foodoffer.adapter.PhotoAdapter;
+import cdio4.cots.foodoffer.constance.JSONKEY;
 import cdio4.cots.foodoffer.database.RequestAPI;
 import cdio4.cots.foodoffer.model.Food;
 import cdio4.cots.foodoffer.model.Photo;
 import me.relex.circleindicator.CircleIndicator;
 
-public class HotFragment extends Fragment {
-
-    //private HotViewModel mViewModel;
-    private RecyclerView rcvFood;
-    private MainActivity mainActivity; //khai báo MainActivity
-    private View mView;
-
-    private List<Food> listFood;
- //   private List<Restaurant> listRestayrant;
-    private Food food;
-//    private Restaurant restaurant;
-
-    private ViewPager viewPager;
-    private CircleIndicator circleIndicator;
-    private PhotoAdapter photoAdapter;
-    private Timer mTimer;
-
+public class HotFragment extends Fragment implements JSONKEY {
     public static HotFragment newInstance() {
         return new HotFragment();
     }
@@ -68,7 +56,8 @@ public class HotFragment extends Fragment {
         listFood = new ArrayList<>();
         mView= inflater.inflate(R.layout.hot_fragment, container, false);
         init();
-       getFood.execute(getResources().getString(R.string.url_GetFood));
+        getFood();
+       //getFood1.execute(getResources().getString(R.string.url_GetFood));
         return mView;
     }
 
@@ -120,58 +109,56 @@ public class HotFragment extends Fragment {
         }
     }
 
-    private AsyncTask<String, Void, String> getFood = new AsyncTask<String, Void, String>() {
-        @Override
-        protected String doInBackground(String... urlRequest) {
-            return new RequestAPI(null, null).GetRequest(urlRequest);
-        }
+    private void getFood(){
+        String url_getFood = getResources().getString(R.string.url_GetFood);
+        requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url_getFood, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonRoot = new JSONObject(response);
+                    JSONObject data = jsonRoot.getJSONObject("data");
+                    JSONArray foods = data.getJSONArray("foods");
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+                    for(int i=0; i < foods.length(); i++){
+                        JSONObject foodObject = foods.getJSONObject(i);
+                        JSONObject kindObject  = foodObject.getJSONObject("loai");
+                        JSONObject restaurant = foodObject.getJSONObject("nhaHang");
 
-            try {
-                JSONObject jsonRoot = new JSONObject(s);
-                JSONObject data = jsonRoot.getJSONObject("data");
-                JSONArray foods = data.getJSONArray("foods");
+                        String foodID = foodObject.getString("_id");
+                        String foodName = foodObject.getString("tenMon");
+                        String foodImage = foodObject.getString("hinhAnh");
+                        String foodCaption = foodObject.getString("moTa");
+                        String foodPrice = foodObject.getString("gia");
+                        String kindOfFoodName = kindObject.getString("tenLoai");
 
-                for(int i=0; i < foods.length(); i++){
-                    JSONObject foodObject = foods.getJSONObject(i);
-                    JSONObject kindObject  = foodObject.getJSONObject("loai");
-                    JSONObject restaurant = foodObject.getJSONObject("nhaHang");
-
-                    String foodID = foodObject.getString("_id");
-                    String foodName = foodObject.getString("tenMon");
-                    String foodImage = foodObject.getString("hinhAnh");
-                    String foodCaption = foodObject.getString("moTa");
-                    String foodPrice = foodObject.getString("gia");
-                    String kindOfFoodName = kindObject.getString("tenLoai");
+                        String res_ID = restaurant.getString("_id");
+                        String res_name = restaurant.getString("name");
+                        String res_phone = restaurant.getString("SDT");
+                        String res_email= restaurant.getString("email");
+                        String res_adress= restaurant.getString("diaChi");
 
 
-                    String res_ID = restaurant.getString("_id");
-                    String res_name = restaurant.getString("name");
-                    String res_phone = restaurant.getString("SDT");
-                    String res_email= restaurant.getString("email");
-                    String res_adress= restaurant.getString("diaChi");
-                  //  String res_photo = restaurant.getString("hinhAnh");
+                        //food = new Food("","","","","","","","");
 
-                    //  food = new Food("","","","","","","");
-                    food = new Food(foodID,kindOfFoodName,res_name,foodName,Double.valueOf(foodPrice),foodCaption,xulyFoodImageUrl(foodImage));
-                    listFood.add(food);
-                  //  photo = new Photo(xulyFoodImageUrl(res_photo));
-                //    mListPhoto.add(photo);
+
+                        food = new Food(foodID,kindOfFoodName,res_ID,res_name,foodName,Double.valueOf(foodPrice),foodCaption,xulyFoodImageUrl(foodImage));
+
+                        listFood.add(food);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+                setUpRecycleView(listFood);
             }
-           /* for(int i=0;i<5;i++){
-                listPhoto.add(new Photo(mListPhoto.get(i).getResURL()));
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Lỗi kết nối Intenet", Toast.LENGTH_LONG).show();
             }
-            setUpBanner(listPhoto);*/
-            setUpRecycleView(listFood);
-        }
-    };
+        });
+        requestQueue.add(stringRequest);
+    }
 
     private void setUpBanner(List<Photo> mListPhoto) {
         mListPhoto=getListPhoto();
@@ -203,5 +190,18 @@ public class HotFragment extends Fragment {
         rcvFood.setLayoutManager(gridLayoutManager);
         rcvFood.setAdapter(adapter);
     }
+
+    private RecyclerView rcvFood;
+    private MainActivity mainActivity;
+    private View mView;
+    private RequestQueue requestQueue;
+
+    private List<Food> listFood;
+    private Food food;
+
+    private ViewPager viewPager;
+    private CircleIndicator circleIndicator;
+    private PhotoAdapter photoAdapter;
+    private Timer mTimer;
 
 }
