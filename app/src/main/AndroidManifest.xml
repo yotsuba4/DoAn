@@ -12,11 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOffer">
         <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".RestaurantDetailActivity" />
+        <activity android:name=".RestaurantDetailActivity" android:theme="@style/Theme.FoodOffer.NoActionBar" />
         <activity
             android:name=".FoodDetailActivity"
             android:theme="@style/Theme.FoodOffer.NoActionBar" />
-        <activity android:name=".SignInActivity" />
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.FoodOffer.NoActionBar" />
