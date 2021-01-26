@@ -1,6 +1,15 @@
 package cdio4.cots.foodoffer.constance;
 
+import com.android.volley.toolbox.StringRequest;
+
 public interface JSONKEY {
+    final String JSON_STATUS = "status";
+    final String JSON_SUCCESS = "success";
+    final String JSON_FAILED = "failed";
+    final String JSON_DATA = "data";
+    final String JSON_TOKEN = "token";
+    final String JSON_ERROR = "error";
+    ///
     final String USERNAME = "username";
     final String PASSWORD = "password";
     final String NEW_PASSWORD = "newPassword";
@@ -14,7 +23,6 @@ public interface JSONKEY {
     final String US_ADRESS = "diaChi";
     final String TOKEN = "Authorization";
     final String HOST_TOKEN = "Bearer ";
-
 
 }
 /*
