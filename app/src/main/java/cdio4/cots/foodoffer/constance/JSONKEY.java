@@ -9,7 +9,9 @@ public interface JSONKEY {
     final String JSON_DATA = "data";
     final String JSON_TOKEN = "token";
     final String JSON_ERROR = "error";
-    ///
+
+
+    //User Object
     final String USERNAME = "username";
     final String PASSWORD = "password";
     final String NEW_PASSWORD = "newPassword";
@@ -24,31 +26,11 @@ public interface JSONKEY {
     final String TOKEN = "Authorization";
     final String HOST_TOKEN = "Bearer ";
 
+    // Food Object
+
+    // Restaurant Object
 }
 /*
-    //
-    đăng ký tài khoản
-    url : https://doan5.herokuapp.com/api/user/auth/register
-    method: POST
-    {
-        username: '',
-                email: '',
-            password: '',
-            SDT: '',
-            diaChi: '',
-            fullName: '',
-            gioiTinh: true/false,
-            ngaySinh: '',
-            CMND: '',
-    }
-
-    đăng nhập
-    method: POST
-    url : https://doan5.herokuapp.com/api/user/auth/login
-    {
-        username: '',
-                password: ''
-    }
 
     cập nhật tài khoản
     url : https://doan5.herokuapp.com/api/user/auth/update

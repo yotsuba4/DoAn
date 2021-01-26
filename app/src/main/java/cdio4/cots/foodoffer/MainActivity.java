@@ -1,6 +1,7 @@
 package cdio4.cots.foodoffer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,16 +19,54 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 
+import cdio4.cots.foodoffer.constance.JSONKEY;
 import cdio4.cots.foodoffer.ui.HomeFragment.HomeFragment;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements JSONKEY {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InitLayout();
-        navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_userInfomation:
+                        // intent = new Intent(MainActivity.this, MainAccountActivity.class);
+                        //  intent.putExtra(getResources().getString(R.string.fragmentID),getResources().getInteger(R.integer.USERINFORMATION_FRAGMENT));
+                        break;
+                    case R.id.nav_discountCode:
+                        // intent = new Intent(MainActivity.this, DiscountCodeActivity.class);
+                        break;
+                    case R.id.nav_cart:
+                        intent = new Intent(MainActivity.this, CartActivity.class);
+                        break;
+                    case R.id.nav_historyTransaction:
+                        // intent = new Intent(MainActivity.this, HistoryTransactionActivity.class);
+                        break;
+                    case R.id.nav_userChangePass:
+                        token = sharedPreferences.getString(JSON_TOKEN, "");
+                        if(token != null || token != "")
+                            intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+                        else
+                            Toast.makeText(getApplicationContext(),"Vui lòng đăng nhập", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.nav_aboutUs:
+                        intent = new Intent(MainActivity.this, AboutUsActivity.class);
+                        break;
+                    case R.id.nav_logout:
+                        // xóa token id, thu hồi tài nguyên
+                        break;
+                }
+                startActivity(intent);
+                item.setChecked(true);
+                mDrawerLayout.closeDrawers();
+                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -62,40 +101,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_userInfomation:
-               // intent = new Intent(MainActivity.this, MainAccountActivity.class);
-              //  intent.putExtra(getResources().getString(R.string.fragmentID),getResources().getInteger(R.integer.USERINFORMATION_FRAGMENT));
-                break;
-            case R.id.nav_discountCode:
-               // intent = new Intent(MainActivity.this, DiscountCodeActivity.class);
-                break;
-            case R.id.nav_cart:
-                intent = new Intent(MainActivity.this, CartActivity.class);
-                break;
-            case R.id.nav_historyTransaction:
-               // intent = new Intent(MainActivity.this, HistoryTransactionActivity.class);
-                break;
-            case R.id.nav_userChangePass:
-             //   intent =new Intent(MainActivity.this, MainAccountActivity.class);
-              //  intent.putExtra(getResources().getString(R.string.fragmentID),getResources().getInteger(R.integer.CHANGEPASSWORD_FRAGMENT));
-                break;
-            case R.id.nav_aboutUs:
-                intent = new Intent(MainActivity.this, AboutUsActivity.class);
-                break;
-            case R.id.nav_logout:
-                // xóa token id, thu hồi tài nguyên
-                break;
-        }
-        startActivity(intent);
-        item.setChecked(true);
-        mDrawerLayout.closeDrawers();
-        Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
-        return true;
-    }
-
     private void InitLayout(){
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -106,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
 
         replaceFragment(new HomeFragment()); // default home fragment
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_preferences_login), MODE_PRIVATE);
     }
 
     protected  void AppBAr_Search(){
@@ -126,9 +132,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBar actionBar;
     private NavigationView navigationView;
     private Intent intent;
+    private SharedPreferences sharedPreferences;
+
 
     private static final int  USERINFORMATION_FRAGMENT = 1;
     private static final int SIGNIN_FRAGMENT = 2;
     private static final int CHANGEPASSWORD_FRAGMENT = 3;
 
+    private String token = "";
 }
