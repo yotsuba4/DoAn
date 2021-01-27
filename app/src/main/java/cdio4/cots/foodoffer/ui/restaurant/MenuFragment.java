@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -87,8 +88,8 @@ public class MenuFragment extends Fragment implements JSONKEY {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-              //  Toast.makeText(getContext(),list_resMenu.get(1).getFood_Name(),Toast.LENGTH_LONG).show();
                 setItemView(list_resMenu);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -115,6 +116,7 @@ public class MenuFragment extends Fragment implements JSONKEY {
     private View mView;
     private RestaurantDetailActivity restaurantDetailActivity;
     private RequestQueue requestQueue;
+
 
     private List<Food> list_resMenu;
     private Food food;

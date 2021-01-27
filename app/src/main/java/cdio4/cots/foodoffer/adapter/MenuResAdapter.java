@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,20 +67,20 @@ public class MenuResAdapter extends RecyclerView.Adapter<MenuResAdapter.MenuResV
        private ImageView img_food;
         private TextView tv_foodName;
         private TextView tv_foodPrice;
-       // private Button btn_addCart;
+        private ImageButton btn_addCart;
 
         public MenuResViewHolder(@NonNull View itemView) {
             super(itemView);
             img_food = itemView.findViewById(R.id.img_res_menu_item_food_icon);
             tv_foodName = itemView.findViewById(R.id.tv_res_menu_item_food_name);
             tv_foodPrice = itemView.findViewById(R.id.tv_res_menu_item_food_price);
-           /* btn_addCart = itemView.findViewById(R.id.btn_res_menu_item_cart);
+            btn_addCart = itemView.findViewById(R.id.btn_res_menu_item_cart);
             btn_addCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(context, "Chưa code chức năng này", Toast.LENGTH_LONG).show();
                 }
-            });*/
+            });
 
         }
     }
