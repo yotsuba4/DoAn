@@ -41,29 +41,35 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
                         // intent = new Intent(MainActivity.this, DiscountCodeActivity.class);
                         break;
                     case R.id.nav_cart:
-                        intent = new Intent(MainActivity.this, CartActivity.class);
+                        intent = new Intent(MainActivity.this, BillDetailActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.nav_historyTransaction:
                         // intent = new Intent(MainActivity.this, HistoryTransactionActivity.class);
                         break;
                     case R.id.nav_userChangePass:
                         token = sharedPreferences.getString(JSON_TOKEN, "");
-                        if(token != null || token != "")
+                        if (token != null || token != ""){
                             intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+                            startActivity(intent);
+                        }
                         else
                             Toast.makeText(getApplicationContext(),"Vui lòng đăng nhập", Toast.LENGTH_LONG).show();
                         break;
                     case R.id.nav_aboutUs:
                         intent = new Intent(MainActivity.this, AboutUsActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.nav_logout:
-                        // xóa token id, thu hồi tài nguyên
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(JSON_TOKEN,"");
+                        editor.commit();
+                        Toast.makeText(getApplicationContext(),"Đẵ đăng xuất", Toast.LENGTH_LONG).show();
                         break;
                 }
-                startActivity(intent);
+
                 item.setChecked(true);
                 mDrawerLayout.closeDrawers();
-                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -133,11 +139,6 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
     private NavigationView navigationView;
     private Intent intent;
     private SharedPreferences sharedPreferences;
-
-
-    private static final int  USERINFORMATION_FRAGMENT = 1;
-    private static final int SIGNIN_FRAGMENT = 2;
-    private static final int CHANGEPASSWORD_FRAGMENT = 3;
 
     private String token = "";
 }

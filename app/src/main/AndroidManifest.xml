@@ -20,8 +20,12 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.FoodOffer.NoActionBar" />
-        <activity android:name=".CartActivity" />
-        <activity android:name=".AboutUsActivity" />
+        <activity
+            android:name=".BillDetailActivity"
+            android:label="Chi tiết đơn hàng"/>
+        <activity
+            android:name=".AboutUsActivity"
+            android:label="Thông tin phiên bản"/>
         <activity
             android:name=".MainActivity"
             android:label=""

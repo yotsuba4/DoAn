@@ -63,4 +63,14 @@ public class DetailFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false);
     }
+
+    private String restaurant_ID;
+    private String restaurant_Name;
+    private String restaurant_Image;
+    private String restaurant_X;
+    private String restaurant_Y;
+    private String restaurant_Phone;
+    private String restaurant_Email;
+    private String restaurant_Adress;
+    private String restaurant_Stype;
 }
