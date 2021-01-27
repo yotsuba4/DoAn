@@ -13,8 +13,18 @@ import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cdio4.cots.foodoffer.adapter.BillDetailAdapter;
 import cdio4.cots.foodoffer.constance.JSONKEY;
@@ -49,7 +59,40 @@ public class BillDetailActivity extends AppCompatActivity implements JSONKEY {
     }
 
     private void buyNow() {
+        try {
+            if(foodAmount ==0){
+                finish();
+                Toast.makeText(getApplicationContext(),"Hủy bỏ đơn hàng", Toast.LENGTH_LONG).show();
+            }
+            else
+                if(foodAmount < 0)
+                    Toast.makeText(getApplicationContext(),"Số lượng không hợp lệ", Toast.LENGTH_LONG).show();
+                else {
+                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    String url_BuyOneFood = getResources().getString(R.string.url_BuyOneFood)+foodID+"?soLuong="+foodAmount;
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url_BuyOneFood, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Toast.makeText(getApplicationContext(),response, Toast.LENGTH_LONG).show();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
+                        }
+                    }){
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String,String> params = new HashMap<String, String>();
+                            params.put(TOKEN, HOST_TOKEN + token);
+                            return params;
+                        }
+                    };
+                    requestQueue.add(stringRequest);
+                }
+        }catch (Exception ex){
+            Toast.makeText(getApplicationContext(),"Số lượng không hợp lệ", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setListBill(List<Food> list_bill) {

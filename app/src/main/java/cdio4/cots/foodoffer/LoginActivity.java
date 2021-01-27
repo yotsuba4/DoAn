@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
         edt_username = findViewById(R.id.ip_edt_activity_login_username);
         edt_password = findViewById(R.id.ip_edt_activity_login_password);
         btn_login = findViewById(R.id.btn_activity_login_login);
-        btn_login = findViewById(R.id.btn_activity_login_cancle);
+        btn_cancle = findViewById(R.id.btn_activity_login_cancle);
         btn_signup = findViewById(R.id.btn_activity_login_sign_in);
 
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_preferences_login), MODE_PRIVATE);
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
                         JSONObject dataObject = rootLogin.getJSONObject(JSON_DATA);
                         token = dataObject.getString(JSON_TOKEN);
                         SharedPreferencesSaveData();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Đăng nhập thất bại, sai tên đăng nhập hoặc mật khẩu.", Toast.LENGTH_LONG).show();
