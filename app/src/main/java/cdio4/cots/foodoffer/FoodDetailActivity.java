@@ -98,7 +98,6 @@ public class FoodDetailActivity extends AppCompatActivity implements JSONKEY {
             @Override
             public void onClick(View v) {
                 intent = new Intent(FoodDetailActivity.this, BillDetailActivity.class);
-
                 startActivity(intent);
             }
         });
