@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
         edt_username = findViewById(R.id.ip_edt_activity_login_username);
         edt_password = findViewById(R.id.ip_edt_activity_login_password);
         btn_login = findViewById(R.id.btn_activity_login_login);
-        btn_login = findViewById(R.id.btn_activity_login_cancle);
+        btn_cancle = findViewById(R.id.btn_activity_login_cancle);
         btn_signup = findViewById(R.id.btn_activity_login_sign_in);
 
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_preferences_login), MODE_PRIVATE);
