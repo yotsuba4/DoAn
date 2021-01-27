@@ -77,6 +77,7 @@ public class HotFoodAdapter extends RecyclerView.Adapter<HotFoodAdapter.HotFoodV
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     Intent intent = new Intent(context, FoodDetailActivity.class);
+                    intent.putExtra("food_ID", mListFood.get(position).getFood_ID());
                     intent.putExtra("FoodName", mListFood.get(position).getFood_Name());
                     intent.putExtra("FoodURL", mListFood.get(position).getFood_urlImage());
                     String foodprice = mListFood.get(position).getFood_Price()+"";

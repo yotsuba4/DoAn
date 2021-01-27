@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
@@ -37,20 +39,30 @@ public class FoodDetailActivity extends AppCompatActivity implements JSONKEY {
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ProgressBar progressBar;
+    private SharedPreferences sharedPreferences;
+
     private ImageView img_foodImage;
     private TextView tv_foodPrice;
     private TextView tv_foodDesc;
     private Button btn_tranferRestaurant;
     private ImageButton ibtn_foodBuyNow;
-    private String id = "";
-    private String sl = "0";
 
+    private String token = "";
+    private String foodID;
     private String restauranID;
+    private String foodName;
+    private String foodPrice;
+    private String foodDescribe;
+    private String restaurantName;
+    private String foodImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
         initLayout();
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_preferences_login), MODE_PRIVATE);
+        token = sharedPreferences.getString(JSON_TOKEN, "");
         setupActionBar();
     }
 
@@ -65,12 +77,15 @@ public class FoodDetailActivity extends AppCompatActivity implements JSONKEY {
         tv_foodPrice = findViewById(R.id.tv_food_detail_activity_food_price);
         tv_foodDesc = findViewById(R.id.instructions);
         ibtn_foodBuyNow =findViewById(R.id.btn_food_detail_activity_add_cart);
-        String foodName = intent.getStringExtra("FoodName");
-        String foodPrice = intent.getStringExtra("Price");
-        String foodDescribe = intent.getStringExtra("Describe");
-        String restaurantName = intent.getStringExtra("FoodRes_Name");
+
+        foodID = intent.getStringExtra("food_ID");
+        foodName = intent.getStringExtra("FoodName");
+        foodPrice = intent.getStringExtra("Price");
+        foodDescribe = intent.getStringExtra("Describe");
+        restaurantName = intent.getStringExtra("FoodRes_Name");
         restauranID = intent.getStringExtra("FoodRes_ID");
-        String foodImage = intent.getStringExtra("FoodURL");
+        foodImage = intent.getStringExtra("FoodURL");
+
         collapsingToolbarLayout.setTitle(foodName);
         tv_foodPrice.setText(foodPrice);
         tv_foodDesc.setText(foodDescribe);
@@ -97,8 +112,18 @@ public class FoodDetailActivity extends AppCompatActivity implements JSONKEY {
         ibtn_foodBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(FoodDetailActivity.this, BillDetailActivity.class);
+                if(token !=null && token!= "" && token != " "){
+                    intent = new Intent(FoodDetailActivity.this, BillDetailActivity.class);
+                    intent.putExtra("food_ID", foodID);
+                    intent.putExtra("food_Name",foodName);
+                    intent.putExtra("food_Image",foodImage);
+                    intent.putExtra("food_Price",foodPrice);
 
+                }
+                else{
+                    intent = new Intent(FoodDetailActivity.this,LoginActivity.class);
+                    Toast.makeText(getApplicationContext(),"Vui lòng đăng nhập", Toast.LENGTH_LONG).show();
+                }
                 startActivity(intent);
             }
         });
@@ -129,7 +154,6 @@ public class FoodDetailActivity extends AppCompatActivity implements JSONKEY {
                     toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.teal_700), PorterDuff.Mode.SRC_ATOP);
                 favoriteItemColor.mutate().setColorFilter(getResources().getColor(R.color.teal_700),
                         PorterDuff.Mode.SRC_ATOP);
-
             } else {
                 if (toolbar.getNavigationIcon() != null)
                     toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
