@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -29,62 +28,57 @@ import com.bumptech.glide.request.target.Target;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import cdio4.cots.foodoffer.constance.JSONKEY;
 
-public class FoodDetailActivity extends AppCompatActivity {
-
-    /*    TextView foodName;
-        Intent intent;*/
-    Intent intent;
-    RequestOptions option;
+public class FoodDetailActivity extends AppCompatActivity implements JSONKEY {
+    private Intent intent;
+    private RequestOptions option;
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ProgressBar progressBar;
-    private ImageView foodImage;
-    private TextView foodPrice;
-    private TextView foodDesc;
-    private Button foodRes;
-    private ImageButton cartFood;
+    private ImageView img_foodImage;
+    private TextView tv_foodPrice;
+    private TextView tv_foodDesc;
+    private Button btn_tranferRestaurant;
+    private ImageButton ibtn_foodBuyNow;
+    private String id = "";
+    private String sl = "0";
 
-    private String fRes_ID;
+    private String restauranID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
-        init();
+        initLayout();
         setupActionBar();
-      /*  foodName=findViewById(R.id.tv_food_detail_activity_food_name);
-        intent=getIntent();
-        String name = intent.getStringExtra("FoodName");
-        foodName.setText(name);*/
     }
 
-    private void init() {
+    private void initLayout() {
         intent=getIntent();
         progressBar=findViewById(R.id.progressBar);
         toolbar = findViewById(R.id.toolbar_food_detail_activity);
         appBarLayout = findViewById(R.id.appbar);
-        foodRes = findViewById(R.id.btn_food_detail_activity_food_res);
+        btn_tranferRestaurant = findViewById(R.id.btn_food_detail_activity_food_res);
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
-        foodImage = findViewById(R.id.imgv_food_detail_activity_food_name);
-        foodPrice = findViewById(R.id.tv_food_detail_activity_food_price);
-        foodDesc = findViewById(R.id.instructions);
-        cartFood=findViewById(R.id.btn_food_detail_activity_add_cart);
-        String fName = intent.getStringExtra("FoodName");
-        String fPrice = intent.getStringExtra("Price");
-        String fDesc = intent.getStringExtra("Describe");
-        String fRes = intent.getStringExtra("FoodRes_Name");
-        fRes_ID = intent.getStringExtra("FoodRes_ID");
-        String fURL = intent.getStringExtra("FoodURL");
-        collapsingToolbarLayout.setTitle(fName);
-        foodPrice.setText(fPrice);
-        foodDesc.setText(fDesc);
-        foodRes.setText(fRes);
+        img_foodImage = findViewById(R.id.imgv_food_detail_activity_food_name);
+        tv_foodPrice = findViewById(R.id.tv_food_detail_activity_food_price);
+        tv_foodDesc = findViewById(R.id.instructions);
+        ibtn_foodBuyNow =findViewById(R.id.btn_food_detail_activity_add_cart);
+        String foodName = intent.getStringExtra("FoodName");
+        String foodPrice = intent.getStringExtra("Price");
+        String foodDescribe = intent.getStringExtra("Describe");
+        String restaurantName = intent.getStringExtra("FoodRes_Name");
+        restauranID = intent.getStringExtra("FoodRes_ID");
+        String foodImage = intent.getStringExtra("FoodURL");
+        collapsingToolbarLayout.setTitle(foodName);
+        tv_foodPrice.setText(foodPrice);
+        tv_foodDesc.setText(foodDescribe);
+        btn_tranferRestaurant.setText(restaurantName);
+
         option = new RequestOptions().centerCrop().placeholder(R.drawable.loading_shape).error(R.drawable.loading_shape);
         Glide.with(this)
-                .load(fURL)
+                .load(foodImage)
                 .apply(option)
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -99,28 +93,23 @@ public class FoodDetailActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .into(foodImage);
-        cartFood.setOnClickListener(new View.OnClickListener() {
+                .into(img_foodImage);
+        ibtn_foodBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FoodDetailActivity.this, CartActivity.class));
+                intent = new Intent(FoodDetailActivity.this, BillDetailActivity.class);
+
+                startActivity(intent); 
             }
         });
-        foodRes.setOnClickListener(new View.OnClickListener() {
+        btn_tranferRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent = new Intent(FoodDetailActivity.this, RestaurantDetailActivity.class);
-                intent.putExtra("restaurant_ID", fRes_ID);
+                intent.putExtra("restaurant_ID", restauranID);
                 startActivity(intent);
             }
         });
-        /*foodPrice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(FoodDetailActivity.this, CartActivity.class));
-
-            }
-        });*/
     }
 
     private void setupActionBar() {
@@ -169,5 +158,4 @@ public class FoodDetailActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

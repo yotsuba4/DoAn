@@ -1,6 +1,5 @@
 package cdio4.cots.foodoffer.ui.HomeFragment.Fragment.Hot;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,9 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,45 +36,36 @@ import cdio4.cots.foodoffer.R;
 import cdio4.cots.foodoffer.adapter.HotFoodAdapter;
 import cdio4.cots.foodoffer.adapter.PhotoAdapter;
 import cdio4.cots.foodoffer.constance.JSONKEY;
-import cdio4.cots.foodoffer.database.RequestAPI;
 import cdio4.cots.foodoffer.model.Food;
 import cdio4.cots.foodoffer.model.Photo;
 import me.relex.circleindicator.CircleIndicator;
 
 public class HotFragment extends Fragment implements JSONKEY {
-    public static HotFragment newInstance() {
-        return new HotFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         listFood = new ArrayList<>();
-        mView= inflater.inflate(R.layout.hot_fragment, container, false);
-        init();
-        getFood();
-       //getFood1.execute(getResources().getString(R.string.url_GetFood));
+        mView = inflater.inflate(R.layout.hot_fragment, container, false);
+        initFragment();
+
+        init_listFood();
         return mView;
     }
 
-    private void init() {
-
-      //  listRestayrant = new ArrayList<>();
-        mainActivity=(MainActivity) getActivity(); //getActivity trả về Activity chứa Fragment đang gọi, không cần thông qua home, ép kiểu về MainActivity. Cái này có thể dùng để gởi dữ liệu từ Fragment về Activity mà không cần xài interface
-        rcvFood= mView.findViewById(R.id.rcv_fragment_hot_food);
+    private void initFragment() {
+        mainActivity = (MainActivity) getActivity(); //getActivity trả về Activity chứa Fragment đang gọi, không cần thông qua home, ép kiểu về MainActivity. Cái này có thể dùng để gởi dữ liệu từ Fragment về Activity mà không cần xài interface
+        rcvFood = mView.findViewById(R.id.rcv_fragment_hot_food);
         viewPager = mView.findViewById(R.id.viewpager_hot_fragment_banner);
         circleIndicator = mView.findViewById(R.id.circle_idicator_hot_fragment_banner);
         setUpBanner(getListPhoto());
     }
 
     private void autoSlideImage() {
-        if(getListPhoto()==null||getListPhoto().isEmpty()||viewPager==null){
+        if (getListPhoto() == null || getListPhoto().isEmpty() || viewPager == null)
             return;
-        }
-        //Init timer
-        if(mTimer==null){
-            mTimer=new Timer();
-        }
+        if (mTimer == null)                //Init timer
+            mTimer = new Timer();
+
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -86,30 +73,29 @@ public class HotFragment extends Fragment implements JSONKEY {
                     @Override
                     public void run() {
                         int currentItem = viewPager.getCurrentItem();
-                        int totalItem = getListPhoto().size()-1;
-                        if(currentItem<totalItem){
+                        int totalItem = getListPhoto().size() - 1;
+                        if (currentItem < totalItem) {
                             currentItem++;
                             viewPager.setCurrentItem(currentItem);
-                        }else{
-                            viewPager.setCurrentItem(0);
                         }
+                        else
+                            viewPager.setCurrentItem(0);
                     }
                 });
             }
-        },500,3000);
+        }, 500, 3000);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        super.onDestroy();
-        if(mTimer!=null){
+        if (mTimer != null) {
             mTimer.cancel();
-            mTimer=null;
+            mTimer = null;
         }
     }
 
-    private void getFood(){
+    private void init_listFood() {
         String url_getFood = getResources().getString(R.string.url_GetFood);
         requestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url_getFood, new Response.Listener<String>() {
@@ -120,9 +106,9 @@ public class HotFragment extends Fragment implements JSONKEY {
                     JSONObject data = jsonRoot.getJSONObject("data");
                     JSONArray foods = data.getJSONArray("foods");
 
-                    for(int i=0; i < foods.length(); i++){
+                    for (int i = 0; i < foods.length(); i++) {
                         JSONObject foodObject = foods.getJSONObject(i);
-                        JSONObject kindObject  = foodObject.getJSONObject("loai");
+                        JSONObject kindObject = foodObject.getJSONObject("loai");
                         JSONObject restaurant = foodObject.getJSONObject("nhaHang");
 
                         String foodID = foodObject.getString("_id");
@@ -135,15 +121,11 @@ public class HotFragment extends Fragment implements JSONKEY {
                         String res_ID = restaurant.getString("_id");
                         String res_name = restaurant.getString("name");
                         String res_phone = restaurant.getString("SDT");
-                        String res_email= restaurant.getString("email");
-                        String res_adress= restaurant.getString("diaChi");
+                        String res_email = restaurant.getString("email");
+                        String res_adress = restaurant.getString("diaChi");
 
-
-                        //food = new Food("","","","","","","","");
-
-
-                        food = new Food(foodID,kindOfFoodName,res_ID,res_name,foodName,Double.valueOf(foodPrice),foodCaption,xulyFoodImageUrl(foodImage));
-
+                        food = new Food(foodID, kindOfFoodName, res_ID, res_name, foodName,
+                                Double.valueOf(foodPrice), foodCaption, convertHttpToHttps(foodImage));
                         listFood.add(food);
                     }
                 } catch (JSONException e) {
@@ -161,13 +143,14 @@ public class HotFragment extends Fragment implements JSONKEY {
     }
 
     private void setUpBanner(List<Photo> mListPhoto) {
-        mListPhoto=getListPhoto();
-        photoAdapter = new PhotoAdapter(mainActivity,mListPhoto);
+        mListPhoto = getListPhoto();
+        photoAdapter = new PhotoAdapter(mainActivity, mListPhoto);
         viewPager.setAdapter(photoAdapter);
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
         autoSlideImage();
     }
+
     private List<Photo> getListPhoto() {
         List<Photo> list = new ArrayList<>();
         list.add(new Photo("https://images.foody.vn/res/g17/161321/prof/s576x330/foody-upload-api-foody-mobile-aroi-jpg-181108144129.jpg"));
@@ -176,17 +159,14 @@ public class HotFragment extends Fragment implements JSONKEY {
         list.add(new Photo("https://images.foody.vn/res/g17/161321/prof/s576x330/foody-upload-api-foody-mobile-aroi-jpg-181108144129.jpg"));
         return list;
     }
-    private String xulyFoodImageUrl(String foodImage) {
-        String[] mangchuoi=foodImage.split(":");
-        String chuoi_https=mangchuoi[0]+"s";
-        String chuoi_conlai=":"+mangchuoi[1];
-        String chuoimoi=chuoi_https.concat(chuoi_conlai);
-        return chuoimoi;
+
+    private String convertHttpToHttps(String url) {
+        return url.replace("http://", "https://");
     }
 
     private void setUpRecycleView(List<Food> listFood) {
-        HotFoodAdapter adapter = new HotFoodAdapter(listFood,mainActivity);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(mainActivity,2);//định dạng layout cho RecycleView là Grid, 2 cột
+        HotFoodAdapter adapter = new HotFoodAdapter(listFood, mainActivity);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mainActivity, 2);//định dạng layout cho RecycleView là Grid, 2 cột
         rcvFood.setLayoutManager(gridLayoutManager);
         rcvFood.setAdapter(adapter);
     }
@@ -204,4 +184,7 @@ public class HotFragment extends Fragment implements JSONKEY {
     private PhotoAdapter photoAdapter;
     private Timer mTimer;
 
+    public static HotFragment newInstance() {
+        return new HotFragment();
+    }
 }

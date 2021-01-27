@@ -42,8 +42,10 @@ public class RestaurantDetailActivity extends AppCompatActivity implements JSONK
     private ViewPager mViewPager;
     private ResDetailViewPagerAdapter mViewPagerAdapter;
     private Intent intent;
-    private List<Food> listMenu;
-    private Restaurant restaurant;
+    public String restaurant_ID;
+    /*private List<Food> listMenu;*/
+
+   /* private Restaurant restaurant;
     private Food food;
 
 
@@ -61,7 +63,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements JSONK
     private Double food_Price;
     private String food_Image;
 
-    private RequestQueue requestQueue;
+    private RequestQueue requestQueue;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements JSONK
         setContentView(R.layout.activity_restaurant_detail);
         initToolbar();
         initLayout();
-        getRestaurant();
+       // getRestaurant();
 
     }
 
@@ -83,7 +85,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements JSONK
 
         intent = getIntent();
         restaurant_ID =  intent.getStringExtra("restaurant_ID");
-        listMenu = new ArrayList<Food>();
+
+
     }
 
     private void setTabLayOutAnimation() {
@@ -108,7 +111,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements JSONK
         }
     }
 
-    private void getRestaurant(){
+   /* private List<Food> getRestaurant(){
+         List<Food> listMenu = new ArrayList<Food>();;
         String url_getRestaurant = getResources().getString(R.string.url_GetFood) + restaurant_ID;
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url_getRestaurant, new Response.Listener<String>() {
@@ -152,5 +156,6 @@ public class RestaurantDetailActivity extends AppCompatActivity implements JSONK
             }
         });
         requestQueue.add(stringRequest);
-    }
+        return listMenu;
+    }*/
 }

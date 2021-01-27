@@ -2,7 +2,6 @@ package cdio4.cots.foodoffer.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
@@ -23,15 +21,13 @@ import cdio4.cots.foodoffer.R;
 import cdio4.cots.foodoffer.model.Food;
 
 public class HotFoodAdapter extends RecyclerView.Adapter<HotFoodAdapter.HotFoodViewHolder> {
-    //Lớp HotFoodViewHolder ta làm bên trong lớp này dùng để tham chiếu giao diện cho từng item trong list
     private List<Food> mListFood;
-    private Context mContext;
-    RequestOptions option;
+    private Context context;
+    private RequestOptions option;
 
-
-    public HotFoodAdapter(List<Food> mListFood,Context mContext){
+    public HotFoodAdapter(List<Food> mListFood,Context context){
         this.mListFood=mListFood;
-        this.mContext=mContext;
+        this.context = context;
         option = new RequestOptions().centerCrop().placeholder(R.drawable.loading_shape).error(R.drawable.loading_shape);
     }
 
@@ -49,14 +45,13 @@ public class HotFoodAdapter extends RecyclerView.Adapter<HotFoodAdapter.HotFoodV
             return;
         }
 
-      // holder.imgFood.setImageResource(food.getImage());
-        Glide.with(mContext)
+        Glide.with(context)
                 .load(food.getFood_urlImage())
                 .apply(option)
-                .into(holder.imgFood);
+                .into(holder.img_food);
 
-        holder.tvNameFood.setText(food.getFood_Name());
-        holder.tvPrice.setText(food.getFood_Price()+" đ");
+        holder.tv_foodName.setText(food.getFood_Name());
+        holder.tv_foodPrice.setText(food.getFood_Price()+" đ");
     }
 
     @Override
@@ -68,19 +63,20 @@ public class HotFoodAdapter extends RecyclerView.Adapter<HotFoodAdapter.HotFoodV
     }
 
     public class HotFoodViewHolder extends RecyclerView.ViewHolder{
-         private ImageView imgFood;
-        private TextView tvNameFood;
-        private TextView tvPrice;
+        private ImageView img_food;
+        private TextView tv_foodName;
+        private TextView tv_foodPrice;
+
         public HotFoodViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgFood=itemView.findViewById(R.id.img_food);
-            tvNameFood=itemView.findViewById(R.id.tv_name_food);
-            tvPrice=itemView.findViewById(R.id.tv_price);
+            img_food =itemView.findViewById(R.id.img_food);
+            tv_foodName =itemView.findViewById(R.id.tv_name_food);
+            tv_foodPrice =itemView.findViewById(R.id.tv_price);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    Intent intent = new Intent(mContext, FoodDetailActivity.class);
+                    Intent intent = new Intent(context, FoodDetailActivity.class);
                     intent.putExtra("FoodName", mListFood.get(position).getFood_Name());
                     intent.putExtra("FoodURL", mListFood.get(position).getFood_urlImage());
                     String foodprice = mListFood.get(position).getFood_Price()+"";
@@ -88,10 +84,9 @@ public class HotFoodAdapter extends RecyclerView.Adapter<HotFoodAdapter.HotFoodV
                     intent.putExtra("Describe",mListFood.get(position).getFood_Captions());
                     intent.putExtra("FoodRes_ID",mListFood.get(position).getRestaurant_ID());
                     intent.putExtra("FoodRes_Name",mListFood.get(position).getRestaurant_Name());
-                    mContext.startActivity(intent);
+                    context.startActivity(intent);
                 }
             });
         }
     }
-
 }
