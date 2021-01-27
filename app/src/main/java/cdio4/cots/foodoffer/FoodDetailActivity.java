@@ -99,7 +99,7 @@ public class FoodDetailActivity extends AppCompatActivity implements JSONKEY {
             public void onClick(View v) {
                 intent = new Intent(FoodDetailActivity.this, BillDetailActivity.class);
 
-                startActivity(intent); 
+                startActivity(intent);
             }
         });
         btn_tranferRestaurant.setOnClickListener(new View.OnClickListener() {
