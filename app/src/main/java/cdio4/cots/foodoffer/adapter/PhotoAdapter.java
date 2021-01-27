@@ -30,7 +30,7 @@ public class PhotoAdapter  extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.res_banner_item,container,false);
-        ImageView imgPhoto = view.findViewById(R.id.img_photo);
+        ImageView imgPhoto = view.findViewById(R.id.img_banner_item);
         Photo photo = mListPhoto.get(position);
         if(photo!=null){
             Glide.with(mContext)

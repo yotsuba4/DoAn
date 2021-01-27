@@ -9,6 +9,15 @@ public class Food {
     private Double food_Price;
     private String food_Captions;
     private String food_urlImage;
+    private int food_amount;
+
+    public int getFood_amount() {
+        return food_amount;
+    }
+
+    public void setFood_amount(int food_amount) {
+        this.food_amount = food_amount;
+    }
 
     public String getFood_ID() {
         return food_ID;
@@ -105,5 +114,13 @@ public class Food {
         this.food_Name = food_Name;
         this.food_Price = food_Price;
         this.food_urlImage = food_urlImage;
+    }
+
+    public Food(String food_ID, String food_Name, Double food_Price, String food_urlImage, int food_amount) {
+        this.food_ID = food_ID;
+        this.food_Name = food_Name;
+        this.food_Price = food_Price;
+        this.food_urlImage = food_urlImage;
+        this.food_amount = food_amount;
     }
 }

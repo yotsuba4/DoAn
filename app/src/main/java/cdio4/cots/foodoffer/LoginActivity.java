@@ -2,7 +2,6 @@ package cdio4.cots.foodoffer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,7 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cdio4.cots.foodoffer.constance.JSONKEY;
-import cdio4.cots.foodoffer.database.RequestAPI;
 import cdio4.cots.foodoffer.tools.RegularExpression;
 
 public class LoginActivity extends AppCompatActivity implements JSONKEY {
@@ -47,11 +45,17 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
             @Override
             public void onClick(View view) {
                 Login();
-           
             }
         });
 
-        btn_signin.setOnClickListener(new View.OnClickListener() {
+        btn_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
@@ -65,7 +69,8 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
         edt_username = findViewById(R.id.ip_edt_activity_login_username);
         edt_password = findViewById(R.id.ip_edt_activity_login_password);
         btn_login = findViewById(R.id.btn_activity_login_login);
-        btn_signin = findViewById(R.id.btn_activity_login_sign_in);
+        btn_login = findViewById(R.id.btn_activity_login_cancle);
+        btn_signup = findViewById(R.id.btn_activity_login_sign_in);
 
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_preferences_login), MODE_PRIVATE);
     }
@@ -139,7 +144,8 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
     private TextInputEditText edt_username;
     private TextInputEditText edt_password;
     private Button btn_login;
-    private Button btn_signin;
+    private Button btn_cancle;
+    private Button btn_signup;
 
     private String username;
     private String password;
