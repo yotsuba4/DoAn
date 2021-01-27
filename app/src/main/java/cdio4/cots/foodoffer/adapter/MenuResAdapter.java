@@ -30,6 +30,8 @@ public class MenuResAdapter extends RecyclerView.Adapter<MenuResAdapter.MenuResV
         this.mListMenuRes = mListMenuRes;
         this.context = context;
         option = new RequestOptions().centerCrop().placeholder(R.drawable.loading_shape).error(R.drawable.loading_shape);
+        notifyDataSetChanged();
+
     }
 
     @NonNull
@@ -45,7 +47,7 @@ public class MenuResAdapter extends RecyclerView.Adapter<MenuResAdapter.MenuResV
         if (food == null) {
             return;
         }
-        Glide.with(context).load(food.getFood_urlImage()).apply(option).into(holder.img_food);
+       Glide.with(context).load(food.getFood_urlImage()).apply(option).into(holder.img_food);
         holder.tv_foodName.setText(food.getFood_Name());
         holder.tv_foodPrice.setText(food.getFood_Price() + " đ");
     }
@@ -61,23 +63,23 @@ public class MenuResAdapter extends RecyclerView.Adapter<MenuResAdapter.MenuResV
     //
 
     public class MenuResViewHolder extends RecyclerView.ViewHolder {
-        private ImageView img_food;
+       private ImageView img_food;
         private TextView tv_foodName;
         private TextView tv_foodPrice;
-        private Button btn_addCart;
+       // private Button btn_addCart;
 
         public MenuResViewHolder(@NonNull View itemView) {
             super(itemView);
             img_food = itemView.findViewById(R.id.img_res_menu_item_food_icon);
             tv_foodName = itemView.findViewById(R.id.tv_res_menu_item_food_name);
             tv_foodPrice = itemView.findViewById(R.id.tv_res_menu_item_food_price);
-            btn_addCart = itemView.findViewById(R.id.btn_res_menu_item_cart);
+           /* btn_addCart = itemView.findViewById(R.id.btn_res_menu_item_cart);
             btn_addCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(context, "Chưa code chức năng này", Toast.LENGTH_LONG).show();
                 }
-            });
+            });*/
 
         }
     }

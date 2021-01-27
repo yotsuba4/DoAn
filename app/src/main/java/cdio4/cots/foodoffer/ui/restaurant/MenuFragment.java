@@ -48,13 +48,18 @@ public class MenuFragment extends Fragment implements JSONKEY {
     private void initFragment() {
         rcvMenu = mView.findViewById(R.id.rcv_res_menu_fragment);
         restaurantDetailActivity=(RestaurantDetailActivity) getActivity();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(restaurantDetailActivity);
-        rcvMenu.setLayoutManager(linearLayoutManager);
-
         intent = getActivity().getIntent();
         restaurant_ID =  intent.getStringExtra("restaurant_ID");
-        MenuResAdapter menuAdapter=new MenuResAdapter(list_resMenu,getContext());
-        rcvMenu.setAdapter(menuAdapter);
+      //  setItemView(taoListTest());
+    }
+
+    private List<Food> taoListTest() {
+        List<Food> list = new ArrayList<>();
+        list.add(new Food("Trà đào cam sả",21000.0,"https://res.cloudinary.com/codersx332456/image/upload/v1611241791/nxjfo93fk8ythwjr9wvj.jpg"));
+        list.add(new Food("Trà đào cam sả",21000.0,"https://res.cloudinary.com/codersx332456/image/upload/v1611241791/nxjfo93fk8ythwjr9wvj.jpg"));
+        list.add(new Food("Trà đào cam sả",21000.0,"https://res.cloudinary.com/codersx332456/image/upload/v1611241791/nxjfo93fk8ythwjr9wvj.jpg"));
+        list.add(new Food("Trà đào cam sả",21000.0,"https://res.cloudinary.com/codersx332456/image/upload/v1611241791/nxjfo93fk8ythwjr9wvj.jpg"));
+        return list;
     }
 
     private void inti_listResMenu(){
@@ -67,7 +72,7 @@ public class MenuFragment extends Fragment implements JSONKEY {
                     JSONObject rootRestaurant = new JSONObject(response);
                     JSONObject dataRestaurant = rootRestaurant.getJSONObject(JSON_DATA);
                     JSONArray menu = dataRestaurant.getJSONArray(MENU);
-                    for (int i=0; i < menu.length(); i++){
+                    for (int i=0; i <= menu.length(); i++){
                         JSONObject foodObject = menu.getJSONObject(i);
 
                         food_Name= foodObject.getString(FOOD_NAME);
@@ -76,17 +81,19 @@ public class MenuFragment extends Fragment implements JSONKEY {
 
                         food = new Food(food_Name,food_Price,convertHttpToHttps(food_Image));
                         list_resMenu.add(food);
+
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-               setItemView(list_resMenu);
+              //  Toast.makeText(getContext(),list_resMenu.get(1).getFood_Name(),Toast.LENGTH_LONG).show();
+                setItemView(list_resMenu);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Có lỗi xảy ra", Toast.LENGTH_LONG).show();
+                Toast.makeText(restaurantDetailActivity, "Có lỗi xảy ra", Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(stringRequest);
@@ -97,7 +104,9 @@ public class MenuFragment extends Fragment implements JSONKEY {
     }
 
    private void setItemView(List<Food> listFood) {
-        MenuResAdapter adapter = new MenuResAdapter(listFood, getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        rcvMenu.setLayoutManager(linearLayoutManager);
+        MenuResAdapter adapter = new MenuResAdapter(listFood, getActivity());
         rcvMenu.setAdapter(adapter);
     }
 

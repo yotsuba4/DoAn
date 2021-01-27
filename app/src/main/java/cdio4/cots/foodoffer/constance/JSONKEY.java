@@ -27,10 +27,13 @@ public interface JSONKEY {
     final String HOST_TOKEN = "Bearer ";
 
     // Food Object
+    final String FOOD_ARR = "foods";
     final String FOOD_NAME = "tenMon";
     final String FOOD_PRICE = "gia";
     final String FOOD_IMAGE = "hinhAnh";
 
+    // Function search
+    final String KEY_SEARCH_TYPE1 = "name";
 
     // Restaurant Object
     final String RESTAURANT = "restaurant";
