@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
                         JSONObject dataObject = rootLogin.getJSONObject(JSON_DATA);
                         token = dataObject.getString(JSON_TOKEN);
                         SharedPreferencesSaveData();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Đăng nhập thất bại, sai tên đăng nhập hoặc mật khẩu.", Toast.LENGTH_LONG).show();

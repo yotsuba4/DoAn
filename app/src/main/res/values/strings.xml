@@ -79,6 +79,7 @@
     <string name="url_GetAccount">https://doan5.herokuapp.com/api/user/auth/getMe</string>
     <string name="url_UpdateAccount">https://doan5.herokuapp.com/api/user/auth/update</string>
     <string name="url_GetRestaurant">https://doan5.herokuapp.com/api/user/restaurant/</string>
+    <string name="url_BuyOneFood">https://doan5.herokuapp.com/api/user/bill/dat1Mon/</string>
 
 
     <!--Fragment-->
