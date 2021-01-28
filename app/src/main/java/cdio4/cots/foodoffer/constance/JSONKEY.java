@@ -48,6 +48,16 @@ public interface JSONKEY {
     final String RESTAURANT_PHONE = "SDT";
     final String RESTAURANT_STYPE = "loaiHinh";
     final String RESTAURANT_STYPE_NAME = "name";
+
+    // Bill Object
+
+    final String BILL = "bill";
+    final String BILL_ID = "_id";
+    final String CUS_ID = "khachHang";
+    final String RES_ID = "nhaHang";
+    final String BILL_DATE_TIME = "dateCreate";
+    final String BILL_STATUS = "isCompleted";
+    final String BILL_TOTAL = "total";
 }
 /*
 

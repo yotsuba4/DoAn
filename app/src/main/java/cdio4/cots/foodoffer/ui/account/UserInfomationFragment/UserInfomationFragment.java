@@ -30,24 +30,24 @@ public class UserInfomationFragment extends Fragment {
         root =  inflater.inflate(R.layout.user_infomation_fragment, container, false);
         InitFragment();
 
-/*        edt_fullName.addTextChangedListener(edt_fullName_Event);
+       edt_fullName.addTextChangedListener(edt_fullName_Event);
         edt_bDate.addTextChangedListener(edt_bDate_Event);
         edt_userID.addTextChangedListener(edt_userID_Event);
         edt_phone.addTextChangedListener(edt_phone_Event);
         edt_email.addTextChangedListener(edt_email_Event);
-        edt_adress.addTextChangedListener(edt_adress_Event);*/
+        edt_adress.addTextChangedListener(edt_adress_Event);
 
-
-       /* rbtGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        userInfomationViewModel = ViewModelProviders.of(getActivity()).get(UserInfomationViewModel.class);
+        rbtGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if(rbt_male.isChecked())
-                    accountViewModel.setGender(true);
+                    userInfomationViewModel.setGender(true);
                 else
                 if (rbt_female.isChecked())
-                    accountViewModel.setGender(false);
+                    userInfomationViewModel.setGender(false);
             }
-        });*/
+        });
 
 
         return root;
@@ -82,7 +82,7 @@ public class UserInfomationFragment extends Fragment {
         rbt_female = rbtGroupGender.findViewById(R.id.rbt_us_info_female);
     }
 
-
+    private UserInfomationViewModel userInfomationViewModel;
     private View root;
     private Account account;
 
@@ -103,7 +103,7 @@ public class UserInfomationFragment extends Fragment {
     private RadioButton rbt_male;
     private RadioButton rbt_female;
 
-/*    private TextWatcher edt_fullName_Event = new TextWatcher() {
+    private TextWatcher edt_fullName_Event = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -116,7 +116,7 @@ public class UserInfomationFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            accountViewModel.setFullname(edt_fullName.getText().toString());
+            userInfomationViewModel.setFullname(edt_fullName.getText().toString());
         }
     };
     private TextWatcher edt_bDate_Event = new TextWatcher() {
@@ -132,7 +132,7 @@ public class UserInfomationFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            accountViewModel.setbDate(edt_bDate.getText().toString());
+            userInfomationViewModel.setbDate(edt_bDate.getText().toString());
         }
     };
     private TextWatcher edt_userID_Event = new TextWatcher() {
@@ -148,7 +148,7 @@ public class UserInfomationFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            accountViewModel.setUsID(edt_userID.getText().toString());
+            userInfomationViewModel.setUsID(edt_userID.getText().toString());
         }
     };
     private TextWatcher edt_phone_Event = new TextWatcher() {
@@ -164,7 +164,7 @@ public class UserInfomationFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            accountViewModel.setPhone(edt_phone.getText().toString());
+            userInfomationViewModel.setPhone(edt_phone.getText().toString());
         }
     };
     private TextWatcher edt_email_Event = new TextWatcher() {
@@ -180,7 +180,7 @@ public class UserInfomationFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            accountViewModel.setEmail(edt_email.getText().toString());
+            userInfomationViewModel.setEmail(edt_email.getText().toString());
         }
     };
     private TextWatcher edt_adress_Event = new TextWatcher() {
@@ -196,9 +196,9 @@ public class UserInfomationFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            accountViewModel.setAdress(edt_adress.getText().toString());
+            userInfomationViewModel.setAdress(edt_adress.getText().toString());
         }
-    };*/
+    };
 
     public static UserInfomationFragment newInstance() {
         return new UserInfomationFragment();

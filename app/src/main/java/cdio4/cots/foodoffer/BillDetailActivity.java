@@ -1,3 +1,4 @@
+
 package cdio4.cots.foodoffer;
 
 import android.content.Intent;
@@ -20,6 +21,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,12 +77,31 @@ public class BillDetailActivity extends AppCompatActivity implements JSONKEY {
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, url_BuyOneFood, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(getApplicationContext(),response, Toast.LENGTH_LONG).show();
+                            try {
+                                JSONObject rootBuyNow = new JSONObject(response);
+                                if (rootBuyNow.getString(JSON_STATUS).equals(JSON_SUCCESS)) {
+                                    JSONObject dataObject = rootBuyNow.getJSONObject(JSON_DATA);
+                                    JSONObject billObject = dataObject.getJSONObject(BILL);
+                                    bill_id = billObject.getString(BILL_ID);
+                                    bill_status = billObject.getString(BILL_STATUS);
+                                    bill_dateTime = billObject.getString(BILL_DATE_TIME);
+                                    bill_total = billObject.getString(BILL_TOTAL);
+                                    cus_id = billObject.getString(CUS_ID);
+                                    res_id = billObject.getString(RES_ID);
+
+                                    Toast.makeText(getApplicationContext(), "Đặt hàng thành công", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Có lỗi xảy ra, vui lòng thử lại", Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+                            Toast.makeText(getApplicationContext(), "Có lỗi xảy ra, vui lòng thử lại", Toast.LENGTH_LONG).show();
                         }
                     }){
                         @Override
@@ -112,19 +135,22 @@ public class BillDetailActivity extends AppCompatActivity implements JSONKEY {
         tv_billTotal = findViewById(R.id.tv_bill_detail_activity_bill_price);
         btn_confirm = findViewById(R.id.btn_bill_detail_confirm);
         btn_cancle = findViewById(R.id.btn_bill_detail_cancle);
+
         intent = getIntent();
         foodID = intent.getStringExtra("food_ID");
         foodName = intent.getStringExtra("food_Name");
         foodPrice = intent.getStringExtra("food_Price");
         foodImage = intent.getStringExtra("food_Image");
-
         food = new Food(foodID,foodName,Double.valueOf((foodPrice)),foodImage,foodAmount);
         list_Bill = new ArrayList<>();
         list_Bill.add(food);
+
         Double cost = new Double(0);
         for (int i =0; i < list_Bill.size(); i++)
             cost += list_Bill.get(i).getFood_Price();
         tv_billTotal.setText(cost + " đ");
+        // Chưa set số lượng
+
     }
 
     private Intent intent;
@@ -147,4 +173,11 @@ public class BillDetailActivity extends AppCompatActivity implements JSONKEY {
     private String foodPrice = "";
     private String foodImage = "";
     private int foodAmount = 1;
+
+    private String bill_status = "đang xử lý";
+    private String bill_id = "";
+    private String bill_dateTime = "";
+    private String cus_id = "";
+    private String res_id = "";
+    private String bill_total = "";
 }
