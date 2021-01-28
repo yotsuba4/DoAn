@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cdio4.cots.foodoffer">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,15 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOffer">
+        <activity android:name=".CartActivity"></activity>
         <activity
             android:name=".UserInfomationActivity"
-            android:label="Thông tin cá nhân"></activity>
+            android:label="Thông tin cá nhân" />
         <activity
             android:name=".ChangePasswordActivity"
-            android:label="Đổi mật khẩu"/>
+            android:label="Đổi mật khẩu" />
         <activity
             android:name=".SignUpActivity"
-            android:label="SignUp"/>
+            android:label="SignUp" />
         <activity
             android:name=".RestaurantDetailActivity"
             android:theme="@style/Theme.FoodOffer.NoActionBar" />
@@ -44,7 +47,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
