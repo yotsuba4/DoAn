@@ -1,5 +1,7 @@
 package cdio4.cots.foodoffer;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 
 import cdio4.cots.foodoffer.constance.JSONKEY;
+import cdio4.cots.foodoffer.ui.HomeFragment.Fragment.SearchBar.SearchBarFragment;
 import cdio4.cots.foodoffer.ui.HomeFragment.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements JSONKEY {
@@ -92,6 +96,26 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_toolbar_main, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.toolbar_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty()){
+                    replaceFragment(new HomeFragment());
+                }else{
+                    replaceFragment(new SearchBarFragment());
+                }
+                return false;
+            }
+        });
         return true;
     }
 
@@ -144,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
     private NavigationView navigationView;
     private Intent intent;
     private SharedPreferences sharedPreferences;
+    private SearchView searchView;
 
     private String token = "";
 }

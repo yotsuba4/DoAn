@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,7 @@ import java.util.Map;
 import cdio4.cots.foodoffer.LoginActivity;
 import cdio4.cots.foodoffer.MainActivity;
 import cdio4.cots.foodoffer.R;
+import cdio4.cots.foodoffer.adapter.SearchFoodAdapter;
 import cdio4.cots.foodoffer.constance.JSONKEY;
 import cdio4.cots.foodoffer.model.Food;
 
@@ -42,7 +45,7 @@ public class SearchBarFragment extends Fragment implements JSONKEY {
 
     private RequestQueue requestQueue;
     private SearchBarViewModel mViewModel;
-
+    private MainActivity mainActivity;
     private View view;
     private RecyclerView lvSearch;
     private List<Food> listSearch;
@@ -63,16 +66,23 @@ public class SearchBarFragment extends Fragment implements JSONKEY {
     }
 
     private void initLayout() {
-
+        mainActivity=(MainActivity) getActivity();
         lvSearch = view.findViewById(R.id.rcv_food_name_search_bar_fragment);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity);
+        lvSearch.setLayoutManager(linearLayoutManager);
+        SearchFoodAdapter searchFoodAdapter = new SearchFoodAdapter(testListFood());
+        lvSearch.setAdapter(searchFoodAdapter);
     }
 
-    /*    @Override
-        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            mViewModel = new ViewModelProvider(this).get(SearchBarViewModel.class);
-            // TODO: Use the ViewModel
-        }*/
+    private List<Food> testListFood(){
+        List<Food> test = new ArrayList<>();
+        Food food1 = new Food("Cơm",16000.0,"https:");
+        Food food2 = new Food("Trà sữa",16000.0,"https:");
+        test.add(food1);
+        test.add(food2);
+        return test;
+    }
+
     private void searchFood() {
         String urlLogin = getResources().getString(R.string.url_Login);
         requestQueue = Volley.newRequestQueue(getContext());

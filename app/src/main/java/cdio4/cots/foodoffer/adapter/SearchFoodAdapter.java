@@ -16,11 +16,10 @@ import cdio4.cots.foodoffer.model.Food;
 
 public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.SearchFoodViewHoler> {
     private List<Food> foodSearchList;
-    private Context context;
 
-    public SearchFoodAdapter(List<Food> foodSearchList, Context context) {
+    public SearchFoodAdapter(List<Food> foodSearchList) {
         this.foodSearchList = foodSearchList;
-        this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -32,7 +31,11 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Se
 
     @Override
     public void onBindViewHolder(@NonNull SearchFoodViewHoler holder, int position) {
-
+        Food food = foodSearchList.get(position);
+        if (food == null) {
+            return;
+        }
+        holder.tvNameFood.setText(food.getFood_Name());
     }
 
     @Override
