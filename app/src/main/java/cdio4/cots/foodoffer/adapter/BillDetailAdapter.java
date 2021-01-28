@@ -62,6 +62,7 @@ private Context context;
         public BillDetailViewHolder(@NonNull View itemView) {
             super(itemView);
             initHolder(itemView);
+
         }
 
         private void initHolder(View view) {
