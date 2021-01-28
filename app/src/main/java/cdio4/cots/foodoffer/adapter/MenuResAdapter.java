@@ -61,8 +61,6 @@ public class MenuResAdapter extends RecyclerView.Adapter<MenuResAdapter.MenuResV
         return 0;
     }
 
-    //
-
     public class MenuResViewHolder extends RecyclerView.ViewHolder {
        private ImageView img_food;
         private TextView tv_foodName;
@@ -81,7 +79,6 @@ public class MenuResAdapter extends RecyclerView.Adapter<MenuResAdapter.MenuResV
                     Toast.makeText(context, "Chưa code chức năng này", Toast.LENGTH_LONG).show();
                 }
             });
-
         }
     }
 }
