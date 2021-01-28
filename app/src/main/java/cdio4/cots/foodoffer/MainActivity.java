@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
                         // intent = new Intent(MainActivity.this, DiscountCodeActivity.class);
                         break;
                     case R.id.nav_cart:
-                        intent = new Intent(MainActivity.this, BillDetailActivity.class);
-                        startActivity(intent);
                         break;
                     case R.id.nav_historyTransaction:
                         // intent = new Intent(MainActivity.this, HistoryTransactionActivity.class);
