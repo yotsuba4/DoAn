@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -72,7 +73,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url_changePass, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Toast.makeText(getApplicationContext(),response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override

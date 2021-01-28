@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_userInfomation:
-                        if (token != null && token != "" && token != " " ){
+                        /*if (token != null && token != "" && token != " " ){
                             intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
                             startActivity(intent);
                         }
                         else
-                            Toast.makeText(getApplicationContext(),"Vui lòng đăng nhập", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Vui lòng đăng nhập", Toast.LENGTH_LONG).show();*/
                         break;
                     case R.id.nav_discountCode:
                         // intent = new Intent(MainActivity.this, DiscountCodeActivity.class);
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
                         Toast.makeText(getApplicationContext(),"Đẵ đăng xuất", Toast.LENGTH_LONG).show();
                         break;
                 }
-
                 item.setChecked(true);
                 mDrawerLayout.closeDrawers();
                 return true;
