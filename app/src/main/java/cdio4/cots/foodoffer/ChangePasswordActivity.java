@@ -35,6 +35,9 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         InitLayout();
+        edt_password.addTextChangedListener(edt_password_Event);
+        edt_newPassword.addTextChangedListener(edt_newPassword_Event);
+        edt_passwordConfirm.addTextChangedListener(edt_passwordConfirm_Event);
 
     }
 
@@ -57,13 +60,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
     }
 
     private void InitLayout() {
-        edt_newPasswordLayout = findViewById(R.id.ip_layout_change_password_password);
+        edt_passwordLayout = findViewById(R.id.ip_layout_change_password_password);
         edt_newPasswordLayout = findViewById(R.id.ip_layout_change_password_new_password);
-        edt_newPasswordLayout = findViewById(R.id.ip_layout__change_password_password_confirm);
+        edt_passwordConfirmLayout= findViewById(R.id.ip_layout__change_password_password_confirm);
 
         edt_password = findViewById(R.id.ip_edt_change_password_password);
-        edt_password = findViewById(R.id.ip_edt_change_password_new_password);
-        edt_password = findViewById(R.id.ip_edt_change_password_password_confirm);
+        edt_newPassword = findViewById(R.id.ip_edt_change_password_new_password);
+        edt_passwordConfirm = findViewById(R.id.ip_edt_change_password_password_confirm);
 
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_preferences_login), MODE_PRIVATE);
     }
@@ -131,7 +134,10 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            regx.checkNull(edt_passwordLayout, charSequence, "Vui lòng nhập mật khẩu");
+            if(charSequence.length() == 0)
+                edt_passwordLayout.setError("Vui lòng nhập mật khẩu");
+            else
+                edt_passwordLayout.setError(null);
         }
 
         @Override
@@ -142,13 +148,16 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
     private TextWatcher edt_newPassword_Event = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            regx.checkNull(edt_passwordLayout, charSequence, "Vui lòng nhập mật khẩu mới");
+
         }
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            if (password.equals(edt_newPassword.getText().toString()))
-                edt_newPasswordLayout.setError("Mật khẩu mới không được trùng mật khẩu cũ");
+            if(charSequence.length() == 0)
+                edt_newPasswordLayout.setError("Vui lòng nhập mật khẩu");
+            else
+                if(edt_password.getText().toString().equals(password))
+                    edt_newPasswordLayout.setError("Mật khẩu mới không trùng mật khẩu cũ");
             else
                 edt_newPasswordLayout.setError(null);
         }
@@ -166,7 +175,10 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            regx.checkNull(edt_passwordLayout, charSequence, "Vui lòng nhập lại mật khẩu mới");
+            if(charSequence.length() == 0)
+                edt_passwordConfirmLayout.setError("Không để trống");
+            else
+                edt_passwordConfirmLayout.setError(null);
         }
 
         @Override

@@ -50,14 +50,14 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
                         // intent = new Intent(MainActivity.this, DiscountCodeActivity.class);
                         break;
                     case R.id.nav_cart:
-                        intent = new Intent(MainActivity.this, CartActivity.class);
-                        startActivity(intent);
                         break;
                     case R.id.nav_historyTransaction:
                         // intent = new Intent(MainActivity.this, HistoryTransactionActivity.class);
                         break;
                     case R.id.nav_userChangePass:
-                        if (token != null && token != "" && token != " " ){
+                        if (sharedPreferences.getString(JSON_TOKEN, "") != null &&
+                                sharedPreferences.getString(JSON_TOKEN, "") != "" &&
+                                sharedPreferences.getString(JSON_TOKEN, "") != " " ){
                             intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
                             startActivity(intent);
                         }
@@ -70,12 +70,11 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
                         break;
                     case R.id.nav_logout:
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(JSON_TOKEN,"");
+                        editor.putString(JSON_TOKEN, "");
                         editor.commit();
                         Toast.makeText(getApplicationContext(),"Đẵ đăng xuất", Toast.LENGTH_LONG).show();
                         break;
                 }
-
                 item.setChecked(true);
                 mDrawerLayout.closeDrawers();
                 return true;
