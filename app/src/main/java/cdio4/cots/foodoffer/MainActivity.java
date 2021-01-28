@@ -29,14 +29,15 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InitLayout();
-        token = sharedPreferences.getString(JSON_TOKEN, "");
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_userInfomation:
-                        if (token != null && token != "" && token != " " ){
-                            intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+                        if (sharedPreferences.getString(JSON_TOKEN, "") != null &&
+                                sharedPreferences.getString(JSON_TOKEN, "") != "" &&
+                                sharedPreferences.getString(JSON_TOKEN, "") != " " ){
+                            intent = new Intent(MainActivity.this, UserInfomationActivity.class);
                             startActivity(intent);
                         }
                         else
@@ -53,7 +54,9 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
                         // intent = new Intent(MainActivity.this, HistoryTransactionActivity.class);
                         break;
                     case R.id.nav_userChangePass:
-                        if (token != null && token != "" && token != " " ){
+                        if (sharedPreferences.getString(JSON_TOKEN, "") != null &&
+                                sharedPreferences.getString(JSON_TOKEN, "") != "" &&
+                                sharedPreferences.getString(JSON_TOKEN, "") != " " ){
                             intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
                             startActivity(intent);
                         }
@@ -66,12 +69,11 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
                         break;
                     case R.id.nav_logout:
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(JSON_TOKEN,"");
+                        editor.putString(JSON_TOKEN, "");
                         editor.commit();
                         Toast.makeText(getApplicationContext(),"Đẵ đăng xuất", Toast.LENGTH_LONG).show();
                         break;
                 }
-
                 item.setChecked(true);
                 mDrawerLayout.closeDrawers();
                 return true;
@@ -144,6 +146,4 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
     private NavigationView navigationView;
     private Intent intent;
     private SharedPreferences sharedPreferences;
-
-    private String token = "";
 }

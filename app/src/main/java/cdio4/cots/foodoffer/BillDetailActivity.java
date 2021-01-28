@@ -1,3 +1,4 @@
+
 package cdio4.cots.foodoffer;
 
 import android.content.Intent;
@@ -140,7 +141,6 @@ public class BillDetailActivity extends AppCompatActivity implements JSONKEY {
         foodName = intent.getStringExtra("food_Name");
         foodPrice = intent.getStringExtra("food_Price");
         foodImage = intent.getStringExtra("food_Image");
-
         food = new Food(foodID,foodName,Double.valueOf((foodPrice)),foodImage,foodAmount);
         list_Bill = new ArrayList<>();
         list_Bill.add(food);
@@ -149,6 +149,8 @@ public class BillDetailActivity extends AppCompatActivity implements JSONKEY {
         for (int i =0; i < list_Bill.size(); i++)
             cost += list_Bill.get(i).getFood_Price();
         tv_billTotal.setText(cost + " đ");
+        // Chưa set số lượng
+
     }
 
     private Intent intent;

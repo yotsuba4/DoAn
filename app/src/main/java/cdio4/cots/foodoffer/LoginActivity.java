@@ -79,7 +79,6 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
     protected void SharedPreferencesSaveData() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(JSON_TOKEN, token);
-
         editor.commit();
     }
 
@@ -147,10 +146,10 @@ public class LoginActivity extends AppCompatActivity implements JSONKEY {
     private Button btn_cancle;
     private Button btn_signup;
 
+    private String token = "";
     private String username;
     private String password;
-    private Boolean loginStatus = false;
-    private String token = "";
+
 
 
     private TextWatcher edt_userName_event = new TextWatcher() {

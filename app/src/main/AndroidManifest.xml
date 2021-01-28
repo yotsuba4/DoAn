@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOffer">
-        <activity android:name=".ChangePasswordActivity"></activity>
-        <activity android:name=".SignUpActivity" />
+        <activity
+            android:name=".UserInfomationActivity"
+            android:label="Thông tin cá nhân"></activity>
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:label="Đổi mật khẩu"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="SignUp"/>
         <activity
             android:name=".RestaurantDetailActivity"
             android:theme="@style/Theme.FoodOffer.NoActionBar" />
@@ -22,10 +29,10 @@
             android:theme="@style/Theme.FoodOffer.NoActionBar" />
         <activity
             android:name=".BillDetailActivity"
-            android:label="Chi tiết đơn hàng"/>
+            android:label="Chi tiết đơn hàng" />
         <activity
             android:name=".AboutUsActivity"
-            android:label="Thông tin phiên bản"/>
+            android:label="Thông tin phiên bản" />
         <activity
             android:name=".MainActivity"
             android:label=""

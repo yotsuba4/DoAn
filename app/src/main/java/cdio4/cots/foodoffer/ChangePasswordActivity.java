@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -47,7 +48,9 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.toolbar_confirm:
+               // Toast.makeText(getApplicationContext(),"Có lỗi xảy ra", Toast.LENGTH_LONG).show();
                 changePass();
+               // finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -72,18 +75,18 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url_changePass, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Toast.makeText(getApplicationContext(),response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getApplicationContext(),error.getMessage(), Toast.LENGTH_LONG).show();
             }
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put(TOKEN, HOST_TOKEN + sharedPreferences.getString(JSON_TOKEN,null));
+                params.put(TOKEN, HOST_TOKEN + sharedPreferences.getString(JSON_TOKEN,""));
                 return params;
             }
 
