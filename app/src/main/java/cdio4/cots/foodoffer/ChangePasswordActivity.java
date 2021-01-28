@@ -53,6 +53,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
             case R.id.toolbar_confirm:
                // Toast.makeText(getApplicationContext(),"Có lỗi xảy ra", Toast.LENGTH_LONG).show();
                 changePass();
+                finish();
                // finish();
                 return true;
         }

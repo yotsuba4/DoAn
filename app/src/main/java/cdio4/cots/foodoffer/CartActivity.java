@@ -10,13 +10,14 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 
+import cdio4.cots.foodoffer.adapter.CartViewPagerAdapter;
 import cdio4.cots.foodoffer.ui.HomeFragment.ViewPagerAdapter;
 
 public class CartActivity extends AppCompatActivity {
 
     private AHBottomNavigation ahBottomNavigation;
     private AHBottomNavigationViewPager ahBottomNavigationViewPager;
-    private ViewPagerAdapter adapter;
+    private CartViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +27,12 @@ public class CartActivity extends AppCompatActivity {
         ahBottomNavigation = findViewById(R.id.AHBottomNavigation);
         ahBottomNavigationViewPager = findViewById(R.id.AHBottomNavigationViewPager);
 
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        adapter = new CartViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         ahBottomNavigationViewPager.setAdapter(adapter);
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Giỏ hàng", R.drawable.ic_baseline_add_shopping_cart_24, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Chi tiết", R.drawable.ic_baseline_gradient_24, R.color.fui_linkColor);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Lịch sử", R.drawable.ic_baseline_card_giftcard_24, R.color.white);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Giỏ hàng", R.drawable.ic_baseline_add_shopping_cart_24, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Chi tiết", R.drawable.ic_baseline_gradient_24, R.color.colorBottomNavigationAccent);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Lịch sử", R.drawable.ic_baseline_card_giftcard_24, R.color.colorPrimary);
 
         ahBottomNavigation.addItem(item1);
         ahBottomNavigation.addItem(item2);

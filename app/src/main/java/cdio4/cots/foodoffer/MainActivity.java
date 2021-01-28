@@ -33,13 +33,14 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InitLayout();
-        token = sharedPreferences.getString(JSON_TOKEN, "");
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_userInfomation:
-                        if (token != null && token != "" && token != " " ){
+                        if (sharedPreferences.getString(JSON_TOKEN, "") != null &&
+                                sharedPreferences.getString(JSON_TOKEN, "") != "" &&
+                                sharedPreferences.getString(JSON_TOKEN, "") != " " ){
                             intent = new Intent(MainActivity.this, UserInfomationActivity.class);
                             startActivity(intent);
                         }
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
                         // intent = new Intent(MainActivity.this, DiscountCodeActivity.class);
                         break;
                     case R.id.nav_cart:
+                      intent = new Intent(MainActivity.this, CartActivity.class);
+                       startActivity(intent);
+                       // Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
                         break;
                     case R.id.nav_historyTransaction:
                         // intent = new Intent(MainActivity.this, HistoryTransactionActivity.class);
@@ -169,6 +173,4 @@ public class MainActivity extends AppCompatActivity implements JSONKEY {
     private Intent intent;
     private SharedPreferences sharedPreferences;
     private SearchView searchView;
-
-    private String token = "";
 }
