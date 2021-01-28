@@ -48,7 +48,9 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.toolbar_confirm:
+               // Toast.makeText(getApplicationContext(),"Có lỗi xảy ra", Toast.LENGTH_LONG).show();
                 changePass();
+               // finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -78,13 +80,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements JSONKEY
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getApplicationContext(),error.getMessage(), Toast.LENGTH_LONG).show();
             }
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put(TOKEN, HOST_TOKEN + sharedPreferences.getString(JSON_TOKEN,null));
+                params.put(TOKEN, HOST_TOKEN + sharedPreferences.getString(JSON_TOKEN,""));
                 return params;
             }
 
